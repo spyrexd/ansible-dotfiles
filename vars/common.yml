@@ -1,0 +1,6 @@
+---
+vim_plugins:
+  - https://github.com/vim-syntastic/syntastic.git
+  - https://github.com/lifepillar/vim-solarized8.git
+  - https://github.com/zah/nim.vim.git
+  - https://github.com/junegunn/rainbow_parentheses.vim.git

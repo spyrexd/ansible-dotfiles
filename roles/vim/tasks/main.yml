@@ -12,13 +12,16 @@
     state: present
   when: ansible_distribution == 'MacOSX'
 
-- name: add plugin dirs
+- name: add vim dirs
   file:
     name: "{{ ansible_user_dir }}/.vim/{{ item }}"
     state: directory
   loop:
     - autoload
     - bundle
+    - backup
+    - undo
+    - swaps
 
 - name: install pathogen
   get_url:
@@ -30,12 +33,13 @@
     repo: "{{ item}}"
     dest: "{{ ansible_user_dir }}/.vim/bundle/{{ (item|basename)[:-4] }}"
     depth: 1
-  loop: "{{ git_plugins }}"
+  loop: "{{ plugins }}"
 
 - name: copy vimrc
   copy:
-    src: vimrc
+    src: "{{ vim_rc }}"
     dest: "{{ ansible_user_dir }}/.vimrc"
     mode: 0664
+    backup: yes
 
 
