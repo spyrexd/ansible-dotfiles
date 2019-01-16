@@ -37,7 +37,7 @@
 
 - name: copy vimrc
   copy:
-    src: "{{ vim_rc }}"
+    src: vimrc
     dest: "{{ ansible_user_dir }}/.vimrc"
     mode: 0664
     backup: yes
