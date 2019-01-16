@@ -1,0 +1,13 @@
+---
+- name: copy bash files
+  copy:
+    src: "{{ item }}"
+    dest: "{{  ansible_user_dir }}/.{{ item }}"
+    backup: yes
+  loop:
+    - aliases
+    - bash_profile
+    - bash_prompt
+    - bashrc
+    - exports
+    - functions
