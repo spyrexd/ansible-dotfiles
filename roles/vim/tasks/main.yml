@@ -3,8 +3,17 @@
   yum:
     name: vim
     state: installed
-  when: ansible_os_family == 'RedHat'
   become: yes
+  when:
+    - ansible_os_family == 'RedHat'
+    - not ansible_pkg_mgr == 'atomic_container'
+
+- name: install vim on rhel/fedora
+  command: rpm-ostree install --idempotent vim
+  become: yes
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_pkg_mgr == 'atomic_container'
 
 - name: install vim on macosx
   homebrew:
