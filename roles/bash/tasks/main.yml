@@ -2,7 +2,7 @@
 - name: copy bash files
   copy:
     src: "{{ item }}"
-    dest: "{{  ansible_user_dir }}/.{{ item }}"
+    dest: "{{  ansible_facts.user_dir }}/.{{ item }}"
     backup: yes
   loop:
     - aliases

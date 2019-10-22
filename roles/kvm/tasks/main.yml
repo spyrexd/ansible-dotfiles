@@ -1,0 +1,19 @@
+---
+- name: Install virtualizaton group
+  package:
+    name:
+      - "@Virtualization"
+      - guestfs-browser
+      - libguestfs-tools
+      - python3-libguestfs
+      - virt-top
+    state: installed
+  become: yes
+
+- name: start libvirtd
+  service:
+    name: libvirtd
+    enabled: true
+    state: started
+  become: yes
+

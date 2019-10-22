@@ -1,7 +1,21 @@
 - hosts: localhost
   connection: local
+  vars:
+    install_packer: false
+    install_kvm: false
   roles:
     - bash
     - vim
     - tmux
-    - andrewrothstein.packer
+  tasks:
+    - name: install hashicorp packer
+      include_role:
+        name: andrewrothstein.packer
+      when: install_packer|bool
+
+    - name: install kvm
+      include_role:
+        name: kvm
+      when:
+        - install_kvm|bool
+        - "ansible_facts.os_family == 'RedHat'"

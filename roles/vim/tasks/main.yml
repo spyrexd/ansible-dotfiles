@@ -5,25 +5,25 @@
     state: installed
   become: yes
   when:
-    - ansible_os_family == 'RedHat'
-    - not ansible_pkg_mgr == 'atomic_container'
+    - ansible_facts.os_family == 'RedHat'
+    - not ansible_facts.pkg_mgr == 'atomic_container'
 
 - name: install vim on rhel/fedora
   command: rpm-ostree install --idempotent vim
   become: yes
   when:
-    - ansible_os_family == 'RedHat'
-    - ansible_pkg_mgr == 'atomic_container'
+    - ansible_facts.os_family == 'RedHat'
+    - ansible_facts.pkg_mgr == 'atomic_container'
 
 - name: install vim on macosx
   homebrew:
     name: vim
     state: present
-  when: ansible_distribution == 'MacOSX'
+  when: ansible_facts.distribution == 'MacOSX'
 
 - name: add vim dirs
   file:
-    name: "{{ ansible_user_dir }}/.vim/{{ item }}"
+    name: "{{ ansible_facts.user_dir }}/.vim/{{ item }}"
     state: directory
   loop:
     - autoload
@@ -35,19 +35,19 @@
 - name: install pathogen
   get_url:
     url: https://tpo.pe/pathogen.vim
-    dest: "{{ ansible_user_dir }}/.vim/autoload/pathogen.vim"
+    dest: "{{ ansible_facts.user_dir }}/.vim/autoload/pathogen.vim"
 
 - name: install git plugins
   git:
-    repo: "{{ item}}"
-    dest: "{{ ansible_user_dir }}/.vim/bundle/{{ (item|basename)[:-4] }}"
+    repo: "{{ item }}"
+    dest: "{{ ansible_facts.user_dir }}/.vim/bundle/{{ (item|basename)[:-4] }}"
     depth: 1
   loop: "{{ plugins }}"
 
 - name: copy vimrc
   copy:
     src: vimrc
-    dest: "{{ ansible_user_dir }}/.vimrc"
+    dest: "{{ ansible_facts.user_dir }}/.vimrc"
     mode: 0664
     backup: yes
 
