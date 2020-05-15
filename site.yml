@@ -3,19 +3,22 @@
   vars:
     install_packer: false
     install_kvm: false
+  collections:
+    - spyrexd.dotfiles
   roles:
-    - bash
-    - vim
-    - tmux
-  tasks:
-    - name: install hashicorp packer
-      include_role:
-        name: andrewrothstein.packer
-      when: install_packer|bool
-
-    - name: install kvm
-      include_role:
-        name: kvm
-      when:
-        - install_kvm|bool
-        - "ansible_facts.os_family == 'RedHat'"
+    - shell_common
+#    - bash
+#    - vim
+#    - tmux
+#  tasks:
+#    - name: install hashicorp packer
+#      include_role:
+#        name: andrewrothstein.packer
+#      when: install_packer|bool
+#
+#    - name: install kvm
+#      include_role:
+#        name: kvm
+#      when:
+#        - install_kvm|bool
+#        - "ansible_facts.os_family == 'RedHat'"
